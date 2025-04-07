@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>†.makserwhyy| BIO</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --main-color: rgba(255, 230, 0, 0.473);
+            --fox-orange: linear-gradient(135deg, #444444 0%, #cccccc 100%);
+            --fox-brown: linear-gradient(135deg, #444444 0%, #cccccc 100%);
+            --fox-white: linear-gradient(135deg, #444444 0%, #cccccc 100%);
+            --menu-gradient: linear-gradient(135deg, #444444 0%, #cccccc 100%);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000000;
+            font-family: 'Fira Code', monospace;
+            color: var(--fox-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(45deg, transparent 48%, var(--fox-orange) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, var(--fox-orange) 50%, transparent 52%);
+            background-size: 1em 1em;
+            opacity: 0.1;
+            animation: grid 20s linear infinite;
+        }
+
+        @keyframes grid {
+            0% { transform: translate(0,0); }
+            100% { transform: translate(1em,1em); }
+        }
+
+        .container {
+            background: var(--menu-gradient);
+            border-radius: 15px;
+            padding: 2px;
+            margin: 20px;
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .card {
+            position: relative;
+            padding: 2rem 1.5rem;
+            border-radius: 13px;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            object-fit: cover;
+            border: 2px solid var(--fox-brown);
+            box-shadow: 0 0 15px var(--fox-orange);
+            transition: transform 0.3s;
+        }
+
+        .avatar:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .username {
+            font-size: 1.8rem;
+            margin: 0 0 1.5rem;
+            color: var(--fox-brown);
+            text-shadow: 0 0 10px var(--fox-orange);
+            font-family: 'Roboto Mono';
+            position: relative;
+        }
+
+        .bio-info {
+            text-align: left;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 140, 66, 0.3);
+            border-radius: 8px;
+            border: 1px solid var(--fox-brown);
+        }
+
+        .bio-item {
+            margin: 0.8rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .bio-item i {
+            color: var(--fox-brown);
+            font-size: 1.2rem;
+        }
+
+        .links {
+            display: grid;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            border-radius: 50px;
+            background: rgba(255, 140, 66, 0.3);
+            border: 1px solid var(--fox-brown);
+            color: var(--fox-white);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .link:hover {
+            background: rgba(255, 140, 66, 0.5);
+            box-shadow: 0 0 15px var(--fox-orange);
+            transform: translateY(-2px);
+        }
+
+        .sound-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 140, 66, 0.4);
+            border: 1px solid var(--fox-brown);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .sound-btn:hover {
+            background: var(--fox-orange);
+            box-shadow: 0 0 15px var(--fox-orange);
+        }
+
+        .sound-btn i {
+            color: var(--fox-white);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .sound-btn:hover i {
+            color: var(--fox-brown);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card"> 
+            <img src="https://i.ibb.co/nM8BXT5g/photo-2025-04-07-13-36-13.jpg" alt="Artem" class="avatar">
+            <h1 class="username">†.makserwhyy</h1>
+            <div class="bio-info">
+                <div class="bio-item">
+                    <i class="bi bi-gender-male"></i>
+                    <span>Boy</span>
+                </div>
+                <div class="bio-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>Russia</span>
+                </div>
+                <div class="bio-item">
+                    <i class="bi bi-calendar-heart"></i>
+                    <span>Birthday: 26.02</span>
+                </div>
+                <div class="bio-item">
+                    <i class="bi bi-code-square"></i>
+                    <span>Python</span>
+                </div>
+                <div class="bio-item">
+                    <i class="bi bi-robot"></i>
+                    <span>Heroku</span>
+                </div>
+                <div class="bio-item">
+                    <i class="bi bi-robot"></i>
+                    <span>thx @ponkechek</span>
+                </div>
+            </div>
+
+            <div class="links">
+                <a href="https://github.com/whymakser" class="link">
+                    <i class="bi bi-github"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
