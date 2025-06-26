@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>†.makserwhyy</title>
+    <title>Arch Linux Bio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -14,6 +14,15 @@
             --fox-brown: linear-gradient(135deg, #444444 0%, #cccccc 100%);
             --fox-white: linear-gradient(135deg, #444444 0%, #cccccc 100%);
             --menu-gradient: linear-gradient(135deg, #444444 0%, #cccccc 100%);
+            --arch-blue: #1793d1;
+            --arch-dark: #0a0a0a;
+            --arch-text: #d3d7cf;
+            --arch-green: #33cc33;
+            --python-string: #ce9178;
+            --python-comment: #5c6370;
+            --gray-border: #666666;
+            --github-gray: linear-gradient(135deg, #333333 0%, #555555 100%);
+            --github-gray-hover: linear-gradient(135deg, #444444 0%, #666666 100%);
         }
 
         body {
@@ -22,7 +31,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #000000;
+            background: linear-gradient(135deg, #333333 0%, #666666 100%);
             font-family: 'Fira Code', monospace;
             color: var(--fox-white);
             position: relative;
@@ -58,6 +67,12 @@
             position: relative;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards 6s;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
 
         .card {
@@ -97,21 +112,32 @@
             text-align: left;
             margin: 1rem 0;
             padding: 1rem;
-            background: rgba(255, 140, 66, 0.3);
+            background: var(--arch-dark);
+            border: 2px solid var(--gray-border);
             border-radius: 8px;
-            border: 1px solid var(--fox-brown);
+            font-family: 'Fira Code', monospace;
+            color: var(--arch-text);
+            box-shadow: 0 0 10px var(--arch-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bio-info::before {
+            content: '[*] makserwhyy@arch ~ $ vim profile.py';
+            display: block;
+            color: var(--arch-blue);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
         }
 
         .bio-item {
             margin: 0.8rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
+            font-size: 0.9rem;
         }
 
-        .bio-item i {
-            color: var(--fox-brown);
-            font-size: 1.2rem;
+        .bio-item span.string {
+            color: var(--python-string);
         }
 
         .links {
@@ -126,7 +152,7 @@
             justify-content: center;
             padding: 0.8rem;
             border-radius: 50px;
-            background: rgba(255, 140, 66, 0.3);
+            background: var(--github-gray);
             border: 1px solid var(--fox-brown);
             color: var(--fox-white);
             text-decoration: none;
@@ -134,73 +160,76 @@
         }
 
         .link:hover {
-            background: rgba(255, 140, 66, 0.5);
+            background: var(--github-gray-hover);
             box-shadow: 0 0 15px var(--fox-orange);
             transform: translateY(-2px);
         }
 
-        .sound-btn {
+        .logs {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: rgba(255, 140, 66, 0.4);
-            border: 1px solid var(--fox-brown);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--arch-dark);
+            padding: 1rem;
+            border: 2px solid var(--arch-blue);
+            border-radius: 8px;
+            color: var(--arch-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            width: 300px;
+            opacity: 1;
+            animation: fadeOut 1s ease-out forwards 5s;
         }
 
-        .sound-btn:hover {
-            background: var(--fox-orange);
-            box-shadow: 0 0 15px var(--fox-orange);
+        .logs p {
+            margin: 0.3rem 0;
+            opacity: 0;
+            animation: logAppear 0.5s ease-in forwards;
         }
 
-        .sound-btn i {
-            color: var(--fox-white);
-            font-size: 1.2rem;
-            transition: color 0.3s;
+        .logs p span.ok {
+            color: var(--arch-green);
+            font-weight: bold;
         }
 
-        .sound-btn:hover i {
-            color: var(--fox-brown);
+        .logs p:nth-child(1) { animation-delay: 0.5s; }
+        .logs p:nth-child(2) { animation-delay: 1.5s; }
+        .logs p:nth-child(3) { animation-delay: 2.5s; }
+        .logs p:nth-child(4) { animation-delay: 3.5s; }
+        .logs p:nth-child(5) { animation-delay: 4.5s; }
+
+        @keyframes logAppear {
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; display: none; }
         }
     </style>
 </head>
 <body>
+    <div class="logs">
+        <p><span class="ok">[ OK ]</span> Mounted /dev/sda1</p>
+        <p><span class="ok">[ OK ]</span> Started SSH Server</p>
+        <p><span class="ok">[ OK ]</span> Reached target Network</p>
+        <p><span class="ok">[ OK ]</span> Started D-Bus System Message Bus</p>
+        <p><span class="ok">[ OK ]</span> Reached target Graphical Interface</p>
+    </div>
     <div class="container">
         <div class="card"> 
             <img src="https://raw.githubusercontent.com/whymakser/whymakser/refs/heads/main/IMG_20250417_070255_742.jpg" alt="pfp was stolen" class="avatar">
-            <h1 class="username">†.makserwhyy</h1>
+            <h1 class="username">.makserwhyy</h1>
             <div class="bio-info">
-                <div class="bio-item">
-                    <i class="bi bi-gender-male"></i>
-                    <span>Boy</span>
-                </div>
-                <div class="bio-item">
-                    <i class="bi bi-geo-alt"></i>
-                    <span>Russia</span>
-                </div>
-                <div class="bio-item">
-                    <i class="bi bi-calendar-heart"></i>
-                    <span>Birthday: 26.02</span>
-                </div>
-                <div class="bio-item">
-                    <i class="bi bi-code-square"></i>
-                    <span>Python</span>
-                </div>
-                <div class="bio-item">
-                    <i class="bi bi-robot"></i>
-                    <span>Heroku</span>
-                </div>
-                <div class="bio-item">
-                    <i class="bi bi-robot"></i>
-                    <span>thx @ponkechek</span>
-                </div>
+                <div class="bio-item">user = {</div>
+                <div class="bio-item">  <span class="string">"name"</span>: <span class="string">"Max"</span>,</div>
+                <div class="bio-item">  <span class="string">"gender"</span>: <span class="string">"Boy"</span>,</div>
+                <div class="bio-item">  <span class="string">"location"</span>: <span class="string">"Russia"</span>,</div>
+                <div class="bio-item">  <span class="string">"birthday"</span>: <span class="string">"26.02"</span>,</div>
+                <div class="bio-item">  <span class="string">"fav_game"</span>: <span class="string">"DDNet"</span>,</div>
+                <div class="bio-item">  <span class="string">"os"</span>: <span class="string">"Arch Linux"</span>,</div>
+                <div class="bio-item">  <span class="string">"language"</span>: [<span class="string">"Python"</span>, <span class="string">"Node.js"</span>, <span class="string">"C++"</span>]</div>
+                <div class="bio-item">}</div>
             </div>
 
             <div class="links">
