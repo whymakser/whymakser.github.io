@@ -41,6 +41,8 @@
             border: 1px solid rgba(255,255,255,0.2);
             opacity: 0;
             animation: fadeIn 1s ease-in forwards 6s;
+            width: calc(100% - 40px);
+            max-width: 800px;
         }
 
         @keyframes fadeIn {
@@ -48,25 +50,23 @@
         }
 
         .card {
-            padding: 2.5rem 1.8rem;
+            padding: 1.5rem;
             border-radius: 13px;
-            max-width: 650px;
             background: rgba(255,255,255,0.1);
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.8rem;
+            flex-direction: column;
         }
 
         .avatar-container {
             width: 100%;
             display: flex;
             justify-content: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .avatar {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--fox-brown);
@@ -74,25 +74,31 @@
         }
 
         .username {
-            font-size: 1.9rem;
-            margin: 0 0 1.2rem;
+            font-size: 1.8rem;
+            margin: 0 0 1.5rem;
             color: var(--fox-brown);
             font-family: 'Roboto Mono';
             text-align: center;
             width: 100%;
         }
 
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
         .bio-info {
             text-align: left;
-            margin: 0;
-            padding: 1.5rem;
+            margin: 0 0 1.5rem;
+            padding: 1.2rem;
             background: var(--arch-dark);
             border: 2px solid var(--gray-border);
             border-radius: 8px;
             font-family: 'Fira Code', monospace;
             color: var(--arch-text);
-            flex: 1;
-            min-width: 300px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .bio-info::before {
@@ -104,8 +110,10 @@
         }
 
         .bio-item {
-            margin: 0.9rem 0;
-            font-size: 0.95rem;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-break: break-word;
         }
 
         .bio-item span.string {
@@ -114,15 +122,15 @@
 
         .now-playing {
             text-align: left;
-            margin: 0;
-            padding: 1.5rem;
+            margin: 0 0 1.5rem;
+            padding: 1.2rem;
             background: var(--arch-dark);
             border: 2px solid var(--gray-border);
             border-radius: 8px;
             font-family: 'Fira Code', monospace;
             color: var(--arch-text);
-            flex: 1;
-            min-width: 300px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .now-playing::before {
@@ -144,23 +152,21 @@
 
         .links {
             display: grid;
-            gap: 1.2rem;
-            margin-top: 2.5rem;
+            gap: 1rem;
             width: 100%;
-            padding-top: 0.5rem;
         }
 
         .link {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 0.9rem;
             border-radius: 50px;
             background: var(--github-gray);
             border: 1px solid var(--fox-brown);
             color: var(--fox-white);
             text-decoration: none;
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
 
@@ -171,8 +177,8 @@
         }
 
         .link i {
-            margin-right: 0.8rem;
-            font-size: 1.2rem;
+            margin-right: 0.7rem;
+            font-size: 1.1rem;
         }
 
         .logs {
@@ -186,8 +192,9 @@
             border-radius: 8px;
             color: var(--arch-text);
             font-family: 'Fira Code', monospace;
-            font-size: 0.95rem;
-            width: 320px;
+            font-size: 0.9rem;
+            width: 300px;
+            max-width: 90%;
             opacity: 1;
             animation: fadeOut 1s ease-out forwards 5s;
         }
@@ -215,6 +222,57 @@
         @keyframes fadeOut {
             to { opacity: 0; }
         }
+
+        /* Desktop layout */
+        @media (min-width: 768px) {
+            .card {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                gap: 2rem;
+                padding: 2rem;
+            }
+            
+            .avatar-container {
+                width: auto;
+                margin: 0;
+                flex-shrink: 0;
+            }
+            
+            .avatar {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .username {
+                display: none;
+            }
+            
+            .profile-content {
+                flex: 1;
+                min-width: 0;
+                margin-top: 0;
+            }
+            
+            .bio-info {
+                margin-bottom: 1.5rem;
+                max-width: 100%;
+            }
+            
+            .now-playing {
+                max-width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .bio-info::before {
+                content: '[*] makserwhyy@arch ~ $ cat profile.json';
+            }
+            
+            .links {
+                grid-template-columns: 1fr 1fr;
+                margin-top: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -230,29 +288,35 @@
             <div class="avatar-container">
                 <img src="https://raw.githubusercontent.com/whymakser/whymakser/main/IMG_20250417_070255_742.jpg" alt="pfp was stolen" class="avatar">
             </div>
-            <h1 class="username">.makserwhyy</h1>
-            <div class="bio-info">
-                <div class="bio-item">user = {</div>
-                <div class="bio-item">  <span class="string">"name"</span>: <span class="string">"Max"</span>,</div>
-                <div class="bio-item">  <span class="string">"gender"</span>: <span class="string">"Boy"</span>,</div>
-                <div class="bio-item">  <span class="string">"location"</span>: <span class="string">"Russia"</span>,</div>
-                <div class="bio-item">  <span class="string">"birthday"</span>: <span class="string">"26.02"</span>,</div>
-                <div class="bio-item">  <span class="string">"discord"</span>: <span class="string">"makserwhyy"</span>,</div>
-                <div class="bio-item">  <span class="string">"fav_game"</span>: <span class="string">"DDNet"</span>,</div>
-                <div class="bio-item">  <span class="string">"os"</span>: <span class="string">"Arch Linux"</span>,</div>
-                <div class="bio-item">  <span class="string">"language"</span>: [<span class="string">"Python"</span>, <span class="string">"Node.js"</span>, <span class="string">"C++"</span>]</div>
-                <div class="bio-item">}</div>
-            </div>
-            <div class="now-playing">
-                <div class="track-info">Loading...</div>
-            </div>
-            <div class="links">
-                <a href="https://github.com/whymakser" class="link">
-                    <i class="bi bi-github"></i> GitHub
-                </a>
-                <a href="https://killedmyselff.t.me/" class="link">
-                    <i class="bi bi-telegram"></i> Telegram
-                </a>
+            
+            <div class="profile-content">
+                <h1 class="username">.makserwhyy</h1>
+                
+                <div class="bio-info">
+                    <div class="bio-item">{</div>
+                    <div class="bio-item">  <span class="string">"name"</span>: <span class="string">"Max"</span>,</div>
+                    <div class="bio-item">  <span class="string">"gender"</span>: <span class="string">"Boy"</span>,</div>
+                    <div class="bio-item">  <span class="string">"location"</span>: <span class="string">"Russia"</span>,</div>
+                    <div class="bio-item">  <span class="string">"birthday"</span>: <span class="string">"26.02"</span>,</div>
+                    <div class="bio-item">  <span class="string">"discord"</span>: <span class="string">"makserwhyy"</span>,</div>
+                    <div class="bio-item">  <span class="string">"fav_game"</span>: <span class="string">"DDNet"</span>,</div>
+                    <div class="bio-item">  <span class="string">"os"</span>: <span class="string">"Arch Linux"</span>,</div>
+                    <div class="bio-item">  <span class="string">"language"</span>: [<span class="string">"Python"</span>, <span class="string">"Node.js"</span>, <span class="string">"C++"</span>]</div>
+                    <div class="bio-item">}</div>
+                </div>
+                
+                <div class="now-playing">
+                    <div class="track-info">Loading...</div>
+                </div>
+                
+                <div class="links">
+                    <a href="https://github.com/whymakser" class="link">
+                        <i class="bi bi-github"></i> GitHub
+                    </a>
+                    <a href="https://killedmyselff.t.me/" class="link">
+                        <i class="bi bi-telegram"></i> Telegram
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -286,4 +350,4 @@
         };
     </script>
 </body>
-                    </html>
+</html>
