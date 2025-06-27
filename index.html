@@ -48,27 +48,34 @@
         }
 
         .card {
-            padding: 2rem 1.5rem;
+            padding: 2.5rem 1.8rem;
             border-radius: 13px;
             max-width: 650px;
             background: rgba(255,255,255,0.1);
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 1.8rem;
+        }
+
+        .avatar-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
         }
 
         .avatar {
-            width: 110px;
-            height: 110px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
             object-fit: cover;
-            border: 2px solid var(--fox-brown);
+            border: 3px solid var(--fox-brown);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
         }
 
         .username {
-            font-size: 1.8rem;
-            margin: 0 0 1.5rem;
+            font-size: 1.9rem;
+            margin: 0 0 1.2rem;
             color: var(--fox-brown);
             font-family: 'Roboto Mono';
             text-align: center;
@@ -77,8 +84,8 @@
 
         .bio-info {
             text-align: left;
-            margin: 1rem 0;
-            padding: 1rem;
+            margin: 0;
+            padding: 1.5rem;
             background: var(--arch-dark);
             border: 2px solid var(--gray-border);
             border-radius: 8px;
@@ -93,12 +100,12 @@
             display: block;
             color: var(--arch-blue);
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .bio-item {
-            margin: 0.8rem 0;
-            font-size: 0.9rem;
+            margin: 0.9rem 0;
+            font-size: 0.95rem;
         }
 
         .bio-item span.string {
@@ -107,8 +114,8 @@
 
         .now-playing {
             text-align: left;
-            margin: 1rem 0;
-            padding: 1rem;
+            margin: 0;
+            padding: 1.5rem;
             background: var(--arch-dark);
             border: 2px solid var(--gray-border);
             border-radius: 8px;
@@ -123,7 +130,7 @@
             display: block;
             color: var(--arch-blue);
             font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .now-playing a {
@@ -137,25 +144,35 @@
 
         .links {
             display: grid;
-            gap: 0.8rem;
-            margin-top: 2rem;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
             width: 100%;
+            padding-top: 0.5rem;
         }
 
         .link {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0.8rem;
+            padding: 1rem;
             border-radius: 50px;
             background: var(--github-gray);
             border: 1px solid var(--fox-brown);
             color: var(--fox-white);
             text-decoration: none;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
         }
 
         .link:hover {
             background: var(--github-gray-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .link i {
+            margin-right: 0.8rem;
+            font-size: 1.2rem;
         }
 
         .logs {
@@ -164,19 +181,19 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: var(--arch-dark);
-            padding: 1rem;
+            padding: 1.2rem;
             border: 2px solid var(--arch-blue);
             border-radius: 8px;
             color: var(--arch-text);
             font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            width: 300px;
+            font-size: 0.95rem;
+            width: 320px;
             opacity: 1;
             animation: fadeOut 1s ease-out forwards 5s;
         }
 
         .logs p {
-            margin: 0.3rem 0;
+            margin: 0.4rem 0;
             opacity: 0;
             animation: logAppear 0.5s ease-in forwards;
         }
@@ -210,7 +227,9 @@
     </div>
     <div class="container">
         <div class="card"> 
-            <img src="https://raw.githubusercontent.com/whymakser/whymakser/main/IMG_20250417_070255_742.jpg" alt="pfp was stolen" class="avatar">
+            <div class="avatar-container">
+                <img src="https://raw.githubusercontent.com/whymakser/whymakser/main/IMG_20250417_070255_742.jpg" alt="pfp was stolen" class="avatar">
+            </div>
             <h1 class="username">.makserwhyy</h1>
             <div class="bio-info">
                 <div class="bio-item">user = {</div>
@@ -218,6 +237,7 @@
                 <div class="bio-item">  <span class="string">"gender"</span>: <span class="string">"Boy"</span>,</div>
                 <div class="bio-item">  <span class="string">"location"</span>: <span class="string">"Russia"</span>,</div>
                 <div class="bio-item">  <span class="string">"birthday"</span>: <span class="string">"26.02"</span>,</div>
+                <div class="bio-item">  <span class="string">"discord"</span>: <span class="string">"makserwhyy"</span>,</div>
                 <div class="bio-item">  <span class="string">"fav_game"</span>: <span class="string">"DDNet"</span>,</div>
                 <div class="bio-item">  <span class="string">"os"</span>: <span class="string">"Arch Linux"</span>,</div>
                 <div class="bio-item">  <span class="string">"language"</span>: [<span class="string">"Python"</span>, <span class="string">"Node.js"</span>, <span class="string">"C++"</span>]</div>
@@ -230,13 +250,16 @@
                 <a href="https://github.com/whymakser" class="link">
                     <i class="bi bi-github"></i> GitHub
                 </a>
+                <a href="https://killedmyselff.t.me/" class="link">
+                    <i class="bi bi-telegram"></i> Telegram
+                </a>
             </div>
         </div>
     </div>
     <script>
-        window.onload = async () => {
+        const fetchTrack = async (retries = 5, delay = 2000) => {
             try {
-                const res = await fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=diedinbathroom&api_key=f06edf83c86fd46fd70a058611e65e10&limit=1&format=json', {
+                const res = await fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=deadinbathroom&api_key=f06edf83c86fd46fd70a058611e65e10&limit=1&format=json', {
                     headers: { 'User-Agent': 'makserwhyy-bio/1.0' }
                 });
                 if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -246,12 +269,21 @@
                 document.querySelector('.track-info').innerHTML = track 
                     ? (track['@attr']?.nowplaying ? `Now playing: <a href="${track.url}" target="_blank">${track.name}</a> - ${track.artist['#text']}` 
                     : `Last played: <a href="${track.url}" target="_blank">${track.name}</a> - ${track.artist['#text']}`)
-                    : 'No recent tracks';
+                    : 'No recent tracks (check Last.fm profile or API key)';
             } catch (err) {
-                document.querySelector('.track-info').innerHTML = 'No recent tracks';
                 console.error('Fetch error:', err.message);
+                if (retries > 0) {
+                    setTimeout(() => fetchTrack(retries - 1, delay), delay);
+                } else {
+                    document.querySelector('.track-info').innerHTML = 'No recent tracks (check Last.fm profile or API key)';
+                }
             }
+        };
+
+        window.onload = () => {
+            fetchTrack();
+            setInterval(fetchTrack, 15000);
         };
     </script>
 </body>
-    </html>
+                    </html>
