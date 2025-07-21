@@ -3,23 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arch Linux Bio</title>
+    <title>Makser Bio</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code|Roboto+Mono">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
-            --fox-orange: #444;
-            --fox-brown: #444;
-            --fox-white: #ccc;
-            --menu-gradient: linear-gradient(135deg, #444 0%, #ccc 100%);
-            --arch-blue: #1793d1;
-            --arch-dark: #0a0a0a;
-            --arch-text: #d3d7cf;
-            --arch-green: #33cc33;
-            --python-string: #ce9178;
-            --gray-border: #666;
-            --github-gray: linear-gradient(135deg, #333 0%, #555 100%);
-            --github-gray-hover: linear-gradient(135deg, #444 0%, #666 100%);
+            --fox-orange: #3a3a3a;
+            --fox-white: #d0d0d0;
+            --menu-gradient: linear-gradient(135deg, #2a2a2a 0%, #4a4a4a 100%);
+            --github-gray: linear-gradient(135deg, #2a2a2a 0%, #4a4a4a 100%);
+            --github-gray-hover: linear-gradient(135deg, #3a3a3a 0%, #5a5a5a 100%);
         }
 
         body {
@@ -28,55 +21,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #333 0%, #666 100%);
+            background: radial-gradient(circle at 20% 30%, #333 10%, #555 30%, #2a2a2a 60%, #444 100%), linear-gradient(45deg, #3a3a3a 0%, #222 100%);
+            background-blend-mode: overlay;
             font-family: 'Fira Code', monospace;
             color: var(--fox-white);
         }
 
         .container {
             background: var(--menu-gradient);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 2px;
             margin: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-            opacity: 0;
-            animation: fadeIn 1s ease-in forwards 6s;
             width: calc(100% - 40px);
-            max-width: 800px;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
+            max-width: 900px;
         }
 
         .card {
             padding: 1.5rem;
-            border-radius: 13px;
-            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
-        }
-
-        .avatar-container {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--fox-brown);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+            gap: 1rem;
         }
 
         .username {
-            font-size: 1.8rem;
-            margin: 0 0 1.5rem;
-            color: var(--fox-brown);
+            font-size: 1.6rem;
+            margin: 0 0 1rem;
+            color: var(--fox-white);
             font-family: 'Roboto Mono';
             text-align: center;
             width: 100%;
@@ -90,63 +62,35 @@
 
         .bio-info {
             text-align: left;
-            margin: 0 0 1.5rem;
+            margin: 0 0 1rem;
             padding: 1.2rem;
-            background: var(--arch-dark);
-            border: 2px solid var(--gray-border);
-            border-radius: 8px;
             font-family: 'Fira Code', monospace;
-            color: var(--arch-text);
+            color: var(--fox-white);
             width: 100%;
             box-sizing: border-box;
-        }
-
-        .bio-info::before {
-            content: '[*] makserwhyy@arch ~ $ vim profile.py';
-            display: block;
-            color: var(--arch-blue);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: 1rem;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 8px;
         }
 
         .bio-item {
-            margin: 0.8rem 0;
-            font-size: 0.9rem;
-            white-space: pre-wrap;
-            word-break: break-word;
+            margin: 0.3rem 0;
+            font-size: 1rem;
+            line-height: 1.5;
         }
 
-        .bio-item span.string {
-            color: var(--python-string);
+        .bio-item span.value {
+            font-style: italic;
+            color: var(--fox-white);
         }
 
-        .now-playing {
-            text-align: left;
-            margin: 0 0 1.5rem;
-            padding: 1.2rem;
-            background: var(--arch-dark);
-            border: 2px solid var(--gray-border);
-            border-radius: 8px;
-            font-family: 'Fira Code', monospace;
-            color: var(--arch-text);
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .now-playing::before {
-            content: '[*] makserwhyy@arch ~ $ now-playing';
-            display: block;
-            color: var(--arch-blue);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .now-playing a {
-            color: var(--python-string);
+        .bio-item a {
+            color: var(--fox-white);
             text-decoration: none;
         }
 
-        .now-playing a:hover {
+        .bio-item a:hover {
             text-decoration: underline;
         }
 
@@ -163,17 +107,15 @@
             padding: 0.9rem;
             border-radius: 50px;
             background: var(--github-gray);
-            border: 1px solid var(--fox-brown);
+            border: 1px solid var(--fox-orange);
             color: var(--fox-white);
             text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: background 0.3s ease;
         }
 
         .link:hover {
             background: var(--github-gray-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .link i {
@@ -181,134 +123,81 @@
             font-size: 1.1rem;
         }
 
-        .logs {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--arch-dark);
-            padding: 1.2rem;
-            border: 2px solid var(--arch-blue);
-            border-radius: 8px;
-            color: var(--arch-text);
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            width: 300px;
-            max-width: 90%;
-            opacity: 1;
-            animation: fadeOut 1s ease-out forwards 5s;
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: var(--fox-white);
+            margin: 1rem 0;
         }
 
-        .logs p {
-            margin: 0.4rem 0;
-            opacity: 0;
-            animation: logAppear 0.5s ease-in forwards;
-        }
-
-        .logs p span.ok {
-            color: var(--arch-green);
-        }
-
-        .logs p:nth-child(1) { animation-delay: 0.5s; }
-        .logs p:nth-child(2) { animation-delay: 1.5s; }
-        .logs p:nth-child(3) { animation-delay: 2.5s; }
-        .logs p:nth-child(4) { animation-delay: 3.5s; }
-        .logs p:nth-child(5) { animation-delay: 4.5s; }
-
-        @keyframes logAppear {
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            to { opacity: 0; }
-        }
-
-        /* Desktop layout */
         @media (min-width: 768px) {
             .card {
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: flex-start;
+                flex-direction: column;
                 gap: 2rem;
                 padding: 2rem;
             }
-            
-            .avatar-container {
-                width: auto;
-                margin: 0;
-                flex-shrink: 0;
-            }
-            
-            .avatar {
-                width: 180px;
-                height: 180px;
-            }
-            
+
             .username {
-                display: none;
+                display: block;
             }
-            
+
             .profile-content {
                 flex: 1;
                 min-width: 0;
                 margin-top: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
             }
-            
+
             .bio-info {
-                margin-bottom: 1.5rem;
-                max-width: 100%;
+                font-size: 1.1rem;
             }
-            
-            .now-playing {
-                max-width: 100%;
-                margin-bottom: 1.5rem;
-            }
-            
-            .bio-info::before {
-                content: '[*] makserwhyy@arch ~ $ cat profile.json';
-            }
-            
+
             .links {
                 grid-template-columns: 1fr 1fr;
-                margin-top: 0;
+                margin-top: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="logs">
-        <p><span class="ok">[ OK ]</span> Mounted /dev/sda1</p>
-        <p><span class="ok">[ OK ]</span> Started SSH Server</p>
-        <p><span class="ok">[ OK ]</span> Reached target Network</p>
-        <p><span class="ok">[ OK ]</span> Started D-Bus System Message Bus</p>
-        <p><span class="ok">[ OK ]</span> Reached target Graphical Interface</p>
-    </div>
     <div class="container">
-        <div class="card"> 
-            <div class="avatar-container">
-                <img src="https://raw.githubusercontent.com/whymakser/whymakser/main/IMG_20250417_070255_742.jpg" alt="pfp was stolen" class="avatar">
-            </div>
-            
+        <div class="card">
             <div class="profile-content">
-                <h1 class="username">.makserwhyy</h1>
-                
+                <h1 class="username">dd if=/dev/makser to=/dev/null</h1>
+                <div class="divider"></div>
                 <div class="bio-info">
-                    <div class="bio-item">{</div>
-                    <div class="bio-item">  <span class="string">"name"</span>: <span class="string">"Max"</span>,</div>
-                    <div class="bio-item">  <span class="string">"gender"</span>: <span class="string">"Boy"</span>,</div>
-                    <div class="bio-item">  <span class="string">"location"</span>: <span class="string">"Russia"</span>,</div>
-                    <div class="bio-item">  <span class="string">"birthday"</span>: <span class="string">"26.02"</span>,</div>
-                    <div class="bio-item">  <span class="string">"discord"</span>: <span class="string">"makserwhyy"</span>,</div>
-                    <div class="bio-item">  <span class="string">"fav_game"</span>: <span class="string">"DDNet"</span>,</div>
-                    <div class="bio-item">  <span class="string">"os"</span>: <span class="string">"Arch Linux"</span>,</div>
-                    <div class="bio-item">  <span class="string">"language"</span>: [<span class="string">"Python"</span>, <span class="string">"Node.js"</span>, <span class="string">"C++"</span>]</div>
-                    <div class="bio-item">}</div>
+                    <div class="bio-item">Name:</div>
+                    <div class="bio-item"><span class="value">Max</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Gender:</div>
+                    <div class="bio-item"><span class="value">Boy</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Location:</div>
+                    <div class="bio-item"><span class="value">Russia</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Birthday:</div>
+                    <div class="bio-item"><span class="value">26.02</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Discord:</div>
+                    <div class="bio-item"><span class="value">makserwhyy</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Favorite Game:</div>
+                    <div class="bio-item"><span class="value">DDNet</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">OS:</div>
+                    <div class="bio-item"><span class="value">Arch Linux on bspwm</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Languages:</div>
+                    <div class="bio-item"><span class="value">Python, Node.js, C++</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Now listening:</div>
+                    <div class="bio-item track-info"><span class="value">Loading...</span></div>
+                    <div class="bio-item"><br></div>
+                    <div class="bio-item">Вдохновлено bio.kezuhiro.fun</div>
                 </div>
-                
-                <div class="now-playing">
-                    <div class="track-info">Loading...</div>
-                </div>
-                
+                <div class="divider"></div>
                 <div class="links">
                     <a href="https://github.com/whymakser" class="link">
                         <i class="bi bi-github"></i> GitHub
@@ -322,6 +211,16 @@
     </div>
     <script>
         const fetchTrack = async (retries = 5, delay = 2000) => {
+            const cacheKey = 'lastfm_track';
+            const cached = localStorage.getItem(cacheKey);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < 15000) {
+                    document.querySelector('.track-info span').innerHTML = data;
+                    return data;
+                }
+            }
+
             try {
                 const res = await fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=deadinbathroom&api_key=f06edf83c86fd46fd70a058611e65e10&limit=1&format=json', {
                     headers: { 'User-Agent': 'makserwhyy-bio/1.0' }
@@ -330,17 +229,23 @@
                 const data = await res.json();
                 if (data.error) throw new Error(data.message);
                 const track = data.recenttracks?.track[0];
-                document.querySelector('.track-info').innerHTML = track 
-                    ? (track['@attr']?.nowplaying ? `Now playing: <a href="${track.url}" target="_blank">${track.name}</a> - ${track.artist['#text']}` 
-                    : `Last played: <a href="${track.url}" target="_blank">${track.name}</a> - ${track.artist['#text']}`)
-                    : 'No recent tracks (check Last.fm profile or API key)';
+                const trackInfo = track 
+                    ? (track['@attr']?.nowplaying 
+                        ? `<a href="${track.url}" target="_blank">${track.name}</a> — ${track.artist['#text']}` 
+                        : `<a href="${track.url}" target="_blank">${track.name}</a> — ${track.artist['#text']}`)
+                    : 'Nothing playing';
+                localStorage.setItem(cacheKey, JSON.stringify({ data: trackInfo, timestamp: Date.now() }));
+                document.querySelector('.track-info span').innerHTML = trackInfo;
+                return trackInfo;
             } catch (err) {
                 console.error('Fetch error:', err.message);
                 if (retries > 0) {
-                    setTimeout(() => fetchTrack(retries - 1, delay), delay);
-                } else {
-                    document.querySelector('.track-info').innerHTML = 'No recent tracks (check Last.fm profile or API key)';
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return fetchTrack(retries - 1, delay);
                 }
+                const errorMsg = 'Nothing playing';
+                document.querySelector('.track-info span').innerHTML = errorMsg;
+                return errorMsg;
             }
         };
 
@@ -350,4 +255,4 @@
         };
     </script>
 </body>
-</html>
+                        </html>
