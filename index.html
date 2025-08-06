@@ -3,221 +3,409 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makser Bio</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Code|Roboto+Mono">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <meta name="description" content="makser-bio">
+    <meta name="keywords" content="bio, био страница, личная страница, профиль">
+    <link rel="icon" href="https://envs.sh/OX.png" type="image/png">
+    <title>makser-bio</title>
     <style>
         :root {
-            --fox-orange: #3a3a3a;
-            --fox-white: #d0d0d0;
-            --menu-gradient: linear-gradient(135deg, #2a2a2a 0%, #4a4a4a 100%);
-            --github-gray: linear-gradient(135deg, #2a2a2a 0%, #4a4a4a 100%);
-            --github-gray-hover: linear-gradient(135deg, #3a3a3a 0%, #5a5a5a 100%);
+            --border-radius: 10px;
         }
-
+        
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
+            background-image: url("https://i.ibb.co/DDWv9rcR/1000043354.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             margin: 0;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: radial-gradient(circle at 20% 30%, #333 10%, #555 30%, #2a2a2a 60%, #444 100%), linear-gradient(45deg, #3a3a3a 0%, #222 100%);
-            background-blend-mode: overlay;
-            font-family: 'Fira Code', monospace;
-            color: var(--fox-white);
+            min-height: 100vh;
+            font-family: monospace;
+            color: white;
+            -webkit-tap-highlight-color: transparent;
         }
-
-        .container {
-            background: var(--menu-gradient);
-            border-radius: 12px;
-            padding: 2px;
-            margin: 20px;
-            width: calc(100% - 40px);
-            max-width: 900px;
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            z-index: -1;
         }
-
-        .card {
-            padding: 1.5rem;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .username {
-            font-size: 1.6rem;
-            margin: 0 0 1rem;
-            color: var(--fox-white);
-            font-family: 'Roboto Mono';
+        .content-container {
+            background-color: rgba(255,255,255,0.05);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid #666;
+            margin: 15px;
+            backdrop-filter: blur(10px);
+            width: 700px;
             text-align: center;
-            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease;
+            will-change: opacity, transform;
+            position: relative;
+            z-index: 2;
+            display: none;
         }
-
-        .profile-content {
+        .content-container.active {
             display: flex;
             flex-direction: column;
-            width: 100%;
         }
-
-        .bio-info {
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: var(--border-radius);
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 1px solid #666;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .heading-with-emoji {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .emoji-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            display: inline-block;
+        }
+        
+        h2 {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            margin-bottom: 5px;
+            margin-top: 5px;
+            word-wrap: break-word;
+            animation: fadeIn 1s ease;
+        }
+        
+        p {
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+            white-space: pre-line;
+            word-wrap: break-word;
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+        .counter-img {
+            margin-top: 15px;
+            opacity: 0.7;
+            display: inline-block;
+            width: 250px;
+            height: auto;
+            max-height: 56px;
+            border-radius: calc(var(--border-radius) / 2);
+        }
+        
+        .control-button {
+            position: fixed;
+            bottom: 20px;
+            cursor: pointer;
+            z-index: 100;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            outline: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+        .control-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+            border-color: rgba(255,255,255,0.5);
+        }
+        .control-button:active {
+            transform: scale(0.95);
+        }
+        .control-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+            filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+        }
+        .control-button.active {
+            background: rgba(255,255,255,0.3);
+            border-color: rgba(255,255,255,0.8);
+        }
+        .info-button {
+            left: 20px;
+        }
+        .enter-button {
+            right: 20px;
+        }
+        
+        .panel {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 99;
+            opacity: 0;
+            height: auto;
+            min-width: 35px;
+        }
+        .panel.show {
+            opacity: 1;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .info-panel {
+            bottom: -200px;
+            left: 20px;
+            width: 260px;
+            min-height: 85px;
+            padding: 12px 15px;
+        }
+        .info-panel.show {
+            bottom: 70px;
+        }
+        .info-panel p {
+            margin: 0 0 10px 0;
             text-align: left;
-            margin: 0 0 1rem;
-            padding: 1.2rem;
-            font-family: 'Fira Code', monospace;
-            color: var(--fox-white);
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 1rem;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(8px);
-            border-radius: 8px;
+            font-size: 12px;
+            color: #f0f0f0;
         }
-
-        .bio-item {
-            margin: 0.3rem 0;
-            font-size: 1rem;
-            line-height: 1.5;
-        }
-
-        .bio-item span.value {
-            font-style: italic;
-            color: var(--fox-white);
-        }
-
-        .bio-item a {
-            color: var(--fox-white);
+        .info-panel a {
+            color: #f0f0f0;
             text-decoration: none;
         }
-
-        .bio-item a:hover {
+        .info-panel a:hover {
             text-decoration: underline;
         }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fadeRotate {
+            0% { opacity: 0; transform: rotate(0deg); }
+            100% { opacity: 1; transform: rotate(360deg); }
+        }
+        
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+            100% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); }
+        }
+        
+        .pulse { animation: pulse 2s ease infinite; }
+        .fade-rotate { animation: fadeRotate 1s ease; }
+        .slide-up { animation: slideUp 0.5s ease; }
+        .glow { animation: glow 2s ease infinite; }
+    
 
-        .links {
-            display: grid;
-            gap: 1rem;
-            width: 100%;
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
         }
 
-        .link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.9rem;
-            border-radius: 50px;
-            background: var(--github-gray);
-            border: 1px solid var(--fox-orange);
-            color: var(--fox-white);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: background 0.3s ease;
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            30% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(43.82756964288555px));
+                opacity: 0;
+            }
         }
 
-        .link:hover {
-            background: var(--github-gray-hover);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @media (max-width: 768px) {
+            .content-container { 
+                width: 90%; 
+                padding: 15px;
+            }
+            body {
+                background-attachment: scroll;
+            }
+            .panel {
+                padding: 12px;
+            }
+            .info-panel {
+                width: 220px;
+                left: 15px;
+            }
+            .enter-button {
+                right: 15px;
+            }
         }
 
-        .link i {
-            margin-right: 0.7rem;
-            font-size: 1.1rem;
-        }
-
-        .divider {
-            width: 100%;
-            height: 1px;
-            background: var(--fox-white);
-            margin: 1rem 0;
-        }
-
-        @media (min-width: 768px) {
-            .card {
-                flex-direction: column;
-                gap: 2rem;
-                padding: 2rem;
-            }
-
-            .username {
-                display: block;
-            }
-
-            .profile-content {
-                flex: 1;
-                min-width: 0;
-                margin-top: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .bio-info {
-                font-size: 1.1rem;
-            }
-
-            .links {
-                grid-template-columns: 1fr 1fr;
-                margin-top: 1rem;
-            }
+        .info-button:hover { 
+            background: rgba(255,255,255,0.1) !important;
+            transform: none !important;
+            border-color: rgba(255,255,255,0.3) !important;
+            animation: none !important;
+            box-shadow: none !important;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <div class="profile-content">
-                <h1 class="username">dd if=/dev/makser to=/dev/null</h1>
-                <div class="divider"></div>
-                <div class="bio-info">
-                    <div class="bio-item">Name:</div>
-                    <div class="bio-item"><span class="value">Max</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Gender:</div>
-                    <div class="bio-item"><span class="value">Boy</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Location:</div>
-                    <div class="bio-item"><span class="value">Russia</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Birthday:</div>
-                    <div class="bio-item"><span class="value">26.02</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Discord:</div>
-                    <div class="bio-item"><span class="value">makserwhyy</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Favorite Game:</div>
-                    <div class="bio-item"><span class="value">DDNet</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">OS:</div>
-                    <div class="bio-item"><span class="value">Arch Linux on bspwm</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Languages:</div>
-                    <div class="bio-item"><span class="value">Python, Node.js, C++</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Now listening:</div>
-                    <div class="bio-item track-info"><span class="value">Loading...</span></div>
-                    <div class="bio-item"><br></div>
-                    <div class="bio-item">Вдохновлено bio.kezuhiro.fun</div>
-                </div>
-                <div class="divider"></div>
-                <div class="links">
-                    <a href="https://github.com/whymakser" class="link">
-                        <i class="bi bi-github"></i> GitHub
-                    </a>
-                    <a href="https://killedmyselff.t.me/" class="link">
-                        <i class="bi bi-telegram"></i> Telegram
-                    </a>
-                </div>
-            </div>
+    <div class="content-container" id="bioContainer">
+        <img src="https://i.ibb.co/6RkmyJ8T/1000051307.jpg" class="avatar" loading="lazy">
+        <div class="heading-with-emoji">
+            <h2 class="slide-up">dd if=/dev/makser to=/dev/null</h2>
         </div>
+        <p class="slide-up">
+Name:
+<em>Max</em>
+
+Gender:
+<em>Boy</em>
+
+Location:
+<em>Russia</em>
+
+Birthday:
+<em>26.02</em>
+
+Discord:
+<em>makserwhyy</em>
+
+Favorite Game:
+<em>DDNet</em>
+
+OS:
+<em>Arch Linux on bspwm</em>
+
+Languages:
+<em>Python, Node.js, C++</em>
+
+Now listening:
+<span id="trackInfo">Loading...</span>
+
+Вдохновлено bio.kezuhiro.fun
+        </p>
+        <img src="https://count.getloli.com/get/@kf2gc?theme=gb-dark" 
+            alt="Счетчик посещений" loading="lazy" class="counter-img" width="250">
     </div>
+
+    <button class="control-button info-button pulse" onclick="toggleInfo()">
+        <svg viewBox="0 0 24 24">
+            <path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+        </svg>
+    </button>
+
+    <button class="control-button enter-button pulse" onclick="toggleBio()">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+    </button>
+
+    <div class="panel info-panel" id="infoPanel">
+        <p>
+            Telegram: <a href="https://extracli.t.me/" target="_blank">extracli</a><br>
+            Last.fm: <a href="https://www.last.fm/user/deadinbathroom" target="_blank">deadinbathroom</a><br>
+            Steam: <a href="https://steamcommunity.com/id/makserwhyy/" target="_blank">makserwhyy</a><br>
+            GitHub: <a href="https://github.com/whymakser" target="_blank">whymakser</a>
+        </p>
+    </div>
+
     <script>
+        document.documentElement.style.setProperty('--border-radius', '10px');
+    
+        function togglePanel(panelId, closeOthers = true) {
+            const panel = document.getElementById(panelId);
+            panel.classList.toggle('show');
+            
+            if (closeOthers) {
+                const allPanels = document.querySelectorAll('.panel');
+                allPanels.forEach(p => {
+                    if (p.id !== panelId) {
+                        p.classList.remove('show');
+                    }
+                });
+            }
+            
+            if (panel.classList.contains('show')) {
+                setTimeout(() => {
+                    document.addEventListener('click', closePanelOutside);
+                }, 10);
+            } else {
+                document.removeEventListener('click', closePanelOutside);
+            }
+        }
+
+        function closePanelOutside(e) {
+            const panels = document.querySelectorAll('.panel');
+            panels.forEach(panel => {
+                const button = document.querySelector('.' + panel.id.replace('Panel', '-button'));
+                if (!panel.contains(e.target) && e.target !== button && !button.contains(e.target)) {
+                    panel.classList.remove('show');
+                }
+            });
+        }
+
+        function toggleInfo() {
+            togglePanel('infoPanel');
+        }
+
+        function toggleBio() {
+            const bioContainer = document.getElementById('bioContainer');
+            bioContainer.classList.toggle('active');
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                toggleBio();
+            }
+        });
+
         const fetchTrack = async (retries = 5, delay = 2000) => {
             const cacheKey = 'lastfm_track';
             const cached = localStorage.getItem(cacheKey);
             if (cached) {
                 const { data, timestamp } = JSON.parse(cached);
                 if (Date.now() - timestamp < 15000) {
-                    document.querySelector('.track-info span').innerHTML = data;
-                    return data;
+                    document.getElementById('trackInfo').innerHTML = data;
+                    return;
                 }
             }
 
@@ -235,17 +423,14 @@
                         : `<a href="${track.url}" target="_blank">${track.name}</a> — ${track.artist['#text']}`)
                     : 'Nothing playing';
                 localStorage.setItem(cacheKey, JSON.stringify({ data: trackInfo, timestamp: Date.now() }));
-                document.querySelector('.track-info span').innerHTML = trackInfo;
-                return trackInfo;
+                document.getElementById('trackInfo').innerHTML = trackInfo;
             } catch (err) {
                 console.error('Fetch error:', err.message);
                 if (retries > 0) {
                     await new Promise(resolve => setTimeout(resolve, delay));
                     return fetchTrack(retries - 1, delay);
                 }
-                const errorMsg = 'Nothing playing';
-                document.querySelector('.track-info span').innerHTML = errorMsg;
-                return errorMsg;
+                document.getElementById('trackInfo').textContent = 'Error loading track';
             }
         };
 
@@ -255,4 +440,4 @@
         };
     </script>
 </body>
-                        </html>
+</html>
