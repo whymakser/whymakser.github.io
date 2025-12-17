@@ -36,6 +36,7 @@ body {
 .logo {
   width: 90px;
   margin-bottom: 24px;
+  border-radius: 30px;
 }
 
 h1 {
@@ -98,6 +99,15 @@ h1 {
   text-align: left;
 }
 
+.install-section a {
+  color: #eaeaf0;
+  text-decoration: none;
+}
+
+.hosts-links {
+  align-content: center;
+}
+
 .cmd-block {
   position: relative;
   margin-top: 16px;
@@ -108,7 +118,9 @@ pre {
   border: 1px solid rgba(255,255,255,.08);
   border-radius: 30px;
   padding: 24px;
-  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: pre-wrap;
+  word-break: break-all;
   font-size: 14px;
   color: #eaeaf0;
 }
