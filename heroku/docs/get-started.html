@@ -5,39 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Heroku Userbot — Get Started</title>
 <link rel="stylesheet" href="../../assets/css/style.css">
-<style>
-
-.cmd-block { position: relative; margin-bottom: 32px; }
-.cmd-text { 
-  background: #0b0b10; 
-  border-radius: 12px; 
-  padding: 20px; 
-  overflow-x: auto; 
-  font-size: 14px; 
-  color: #eaeaf0; 
-  white-space: pre-wrap;
-}
-
-.copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #5865f2;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  transition: .25s ease;
-}
-
-.copy-btn:hover { background: #7b79f7; }
-
-@media (max-width: 768px) {
-  .copy-btn { position: static; display: block; margin-top: 8px; }
-}
-</style>
 </head>
 <body>
 
@@ -45,23 +12,23 @@
 <h1>Установка Heroku Userbot</h1>
 
 <h2>VDS / VPS</h2>
-<div class="cmd-block">
-  <pre id="cmd1" class="cmd-text">sudo apt update && sudo apt upgrade -y && sudo apt install git python3-pip && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
+<div style="position:relative;">
+  <pre id="cmd1">sudo apt update && sudo apt upgrade -y && sudo apt install git python3-pip && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
   <button class="copy-btn">Copy</button>
   <p>Если нет прав sudo — уберите sudo из команды.</p>
 </div>
 
 <h2>Windows (WSL)</h2>
-<div class="cmd-block">
-  <pre id="cmd2" class="cmd-text">wsl --install -d Ubuntu-22.04
+<div style="position:relative;">
+  <pre id="cmd2">wsl --install -d Ubuntu-22.04
 curl -Ss https://bootstrap.pypa.io/get-pip.py | python3
 git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
   <button class="copy-btn">Copy</button>
 </div>
 
 <h2>UserLAnd</h2>
-<div class="cmd-block">
-  <pre id="cmd3" class="cmd-text">sudo apt update && sudo apt upgrade -y && sudo apt install python3 git python3-pip -y && git clone https://github.com/coddrago/Heroku && cd Heroku && sudo pip install -r requirements.txt && python3 -m heroku</pre>
+<div style="position:relative;">
+  <pre id="cmd3">sudo apt update && sudo apt upgrade -y && sudo apt install python3 git python3-pip -y && git clone https://github.com/coddrago/Heroku && cd Heroku && sudo pip install -r requirements.txt && python3 -m heroku</pre>
   <button class="copy-btn">Copy</button>
 </div>
 
@@ -82,8 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const pre = btn.previousElementSibling;
       if (!pre) return;
 
-      const text = pre.innerText;
-      navigator.clipboard.writeText(text).then(() => {
+      navigator.clipboard.writeText(pre.innerText).then(() => {
         const original = btn.innerText;
         btn.innerText = "Copied!";
         setTimeout(() => btn.innerText = original, 1500);
