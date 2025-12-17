@@ -20,12 +20,14 @@
     Установка Heroku Userbot на разные платформы.
   </p>
 
-  <!-- VDS / VPS -->
+   <!-- VDS / VPS -->
   <section class="install-section">
     <h2>VDS / VPS</h2>
 
     <div class="cmd-block">
-      <pre>sudo apt update && sudo apt upgrade -y && sudo apt install git python3-pip && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
+      <pre>sudo apt update && sudo apt upgrade -y && sudo apt install git
+python3-pip && git clone https://github.com/coddrago/Heroku && 
+cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
       <button class="copy-btn">Copy</button>
       <p class="note">Если нет прав sudo — уберите sudo из команды.</p>
     </div>
@@ -53,19 +55,39 @@ git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requ
     </p>
 
     <div class="cmd-block">
-      <pre>termux-wake-lock && export AIOHTTP_NO_EXTENSIONS=1 && pkg upd && pkg upgr -y && pkg i wget tur-repo python3.10 ncurses-utils python3.10 openssl git rust clang make -y && clear && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3.10 -m heroku --no-web</pre>
+      <pre>termux-wake-lock && export AIOHTTP_NO_EXTENSIONS=1 && pkg upd && pkg upgr -y && pkg i wget tur-
+repo python3.10 ncurses-utils python3.10 openssl git rust clang make -y && clear && git clone 
+https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3.10 -m heroku --no-web</pre>
       <button class="copy-btn">Copy</button>
     </div>
   </section>
 
- <section class="install-section">
-    <h2>JamHost — jamhostbot.t.me</h2>
+<aside class="hosts-links">
+  <section class="install-section" style="text-align: center;">
+    <h2>
+      JamHost —
+      <a href="https://t.me/lavhostbot" target="_blank" rel="noopener">
+        @jamhostbot
+      </a>
+    </h2>
 
-<section class="install-section">
-    <h2>LavHost — lavhostbot.t.me</h2>
+<section class="install-section" style="text-align: center;">
+      <h2>
+        LavHost —
+        <a href="https://t.me/lavhostbot" target="_blank" rel="noopener">
+          @lavhostbot
+        </a>
+      </h2>
 
-<section class="install-section">
-    <h2>Hikkahost — hikkahost_bot.t.me</h2>
+  <section class="install-section" style="text-align: center;">
+    <h2>
+      Hikkahost —
+      <a class="link-color" href="https://t.me/hikkahost_bot" target="_blank" rel="noopener">
+        @hikkahost_bot
+      </a>
+    </h2>
+  </section>
+</aside>
 
   <div class="actions" style="margin-top:40px;">
     <a href="/heroku/index.html" class="btn ghost">Back</a>
@@ -78,22 +100,7 @@ git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requ
   <p>© Heroku Userbot</p>
 </footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const pre = btn.previousElementSibling;
-      if (!pre) return;
-
-      navigator.clipboard.writeText(pre.innerText).then(() => {
-        const original = btn.textContent;
-        btn.textContent = "Copied!";
-        setTimeout(() => btn.textContent = original, 1500);
-      });
-    });
-  });
-});
-</script>
+<script src="/heroku/assets/scripts/script.js"></script>
 
 </body>
 </html>
