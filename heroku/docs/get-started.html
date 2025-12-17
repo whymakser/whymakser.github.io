@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heroku Userbot — Get Started</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #050507;
+  color: #eaeaf0;
+  margin: 0;
+  padding: 0 10px;
+}
+
+main {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+h1, h2 { color: #ffffff; }
+
+pre {
+  background: #0b0b10;
+  border-radius: 10px;
+  padding: 16px;
+  overflow-x: auto;
+  position: relative;
+  font-size: 16px;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #5865f2;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.copy-btn:hover { background: #7b79f7; }
+
+.toast {
+  position: absolute;
+  top: -30px;
+  right: 10px;
+  background: #333;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.toast.show { opacity: 1; }
+
+ul { padding-left: 20px; }
+</style>
+</head>
+<body>
+
+<main>
+<h1>Установка Heroku Userbot</h1>
+
+<h2>VDS / VPS</h2>
+<div style="position:relative;">
+  <pre id="cmd1">sudo apt update && sudo apt upgrade -y && sudo apt install git python3-pip && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
+  <button class="copy-btn" onclick="copyToClipboard('cmd1', this)">Copy</button>
+  <div class="toast">Copied to clipboard!</div>
+  <p>Если нет прав sudo — уберите sudo из команды.</p>
+</div>
+
+<h2>Windows (WSL)</h2>
+<div style="position:relative;">
+  <pre id="cmd2">wsl --install -d Ubuntu-22.04
+curl -Ss https://bootstrap.pypa.io/get-pip.py | python3
+git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
+  <button class="copy-btn" onclick="copyToClipboard('cmd2', this)">Copy</button>
+  <div class="toast">Copied to clipboard!</div>
+</div>
+
+<h2>UserLAnd</h2>
+<div style="position:relative;">
+  <pre id="cmd3">sudo apt update && sudo apt upgrade -y && sudo apt install python3 git python3-pip -y && git clone https://github.com/coddrago/Heroku && cd Heroku && sudo pip install -r requirements.txt && python3 -m heroku</pre>
+  <button class="copy-btn" onclick="copyToClipboard('cmd3', this)">Copy</button>
+  <div class="toast">Copied to clipboard!</div>
+</div>
+
+<h2>Хостинги</h2>
+<ul>
+<li>JamHost — @jamhostbot</li>
+<li>HikkaHost — @hikkahost_bot</li>
+<li>LavHost — @lavhostbot</li>
+</ul>
+</main>
+
+<script>
+function copyToClipboard(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = btn.nextElementSibling;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+}
+</script>
+
+</body>
+</html>
