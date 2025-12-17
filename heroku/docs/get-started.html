@@ -14,7 +14,7 @@
 <h2>VDS / VPS</h2>
 <div style="position:relative;">
   <pre id="cmd1">sudo apt update && sudo apt upgrade -y && sudo apt install git python3-pip && git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
-  <button class="copy-btn" onclick="copyToClipboard('cmd1', this)">Copy</button>
+  <button class="copy-btn">Copy</button>
   <div class="toast">Copied to clipboard!</div>
   <p>Если нет прав sudo — уберите sudo из команды.</p>
 </div>
@@ -24,14 +24,14 @@
   <pre id="cmd2">wsl --install -d Ubuntu-22.04
 curl -Ss https://bootstrap.pypa.io/get-pip.py | python3
 git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requirements.txt && python3 -m heroku</pre>
-  <button class="copy-btn" onclick="copyToClipboard('cmd2', this)">Copy</button>
+  <button class="copy-btn">Copy</button>
   <div class="toast">Copied to clipboard!</div>
 </div>
 
 <h2>UserLAnd</h2>
 <div style="position:relative;">
   <pre id="cmd3">sudo apt update && sudo apt upgrade -y && sudo apt install python3 git python3-pip -y && git clone https://github.com/coddrago/Heroku && cd Heroku && sudo pip install -r requirements.txt && python3 -m heroku</pre>
-  <button class="copy-btn" onclick="copyToClipboard('cmd3', this)">Copy</button>
+  <button class="copy-btn">Copy</button>
   <div class="toast">Copied to clipboard!</div>
 </div>
 
@@ -44,14 +44,22 @@ git clone https://github.com/coddrago/Heroku && cd Heroku && pip install -r requ
 </main>
 
 <script>
-function copyToClipboard(id, btn) {
-  const text = document.getElementById(id).innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const toast = btn.nextElementSibling;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 1500);
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".copy-btn");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const pre = btn.previousElementSibling;
+      if (!pre) return;
+
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        const toast = btn.nextElementSibling;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 1500);
+      });
+    });
   });
-}
+});
 </script>
 
 </body>
