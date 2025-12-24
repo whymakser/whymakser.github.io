@@ -281,12 +281,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const gifContainer = document.createElement('div');
         gifContainer.id = 'shake-gif';
-        gifContainer.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 10000; padding: 10px 0; background: transparent;';
+        gifContainer.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 10000; padding: 20px 0; background: transparent;';
         
         const gifImg = document.createElement('img');
         gifImg.src = 'https://media.tenor.com/o9rNU1uX_R0AAAAi/cat-campfire.gif';
         gifImg.alt = 'Кот у костра';
-        gifImg.style.cssText = 'max-width: 120px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);';
+        gifImg.style.cssText = 'max-width: 250px; width: 80%; height: auto; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.3);';
         
         gifContainer.appendChild(gifImg);
         document.body.appendChild(gifContainer);
