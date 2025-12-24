@@ -214,7 +214,6 @@
             font-size: 1.1rem;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .container {
                 padding: 0 10px;
@@ -273,6 +272,66 @@
         }
     </style>
 </head>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.DeviceMotionEvent !== 'undefined') {
+        let lastX = null, lastY = null, lastZ = null;
+        let isGifShown = false;
+        let shakeThreshold = 15;
+        
+        const gifContainer = document.createElement('div');
+        gifContainer.id = 'shake-gif';
+        gifContainer.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 10000; padding: 10px 0; background: transparent;';
+        
+        const gifImg = document.createElement('img');
+        gifImg.src = 'https://media.tenor.com/o9rNU1uX_R0AAAAi/cat-campfire.gif';
+        gifImg.alt = 'Кот у костра';
+        gifImg.style.cssText = 'max-width: 120px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);';
+        
+        gifContainer.appendChild(gifImg);
+        document.body.appendChild(gifContainer);
+        
+        function showGif() {
+            if (isGifShown) return;
+            isGifShown = true;
+            gifContainer.style.display = 'block';
+        }
+        
+        window.addEventListener('devicemotion', function(event) {
+            const acceleration = event.accelerationIncludingGravity;
+            const currentX = acceleration.x;
+            const currentY = acceleration.y;
+            const currentZ = acceleration.z;
+            
+            if (lastX === null || lastY === null || lastZ === null) {
+                lastX = currentX;
+                lastY = currentY;
+                lastZ = currentZ;
+                return;
+            }
+            
+            const deltaX = Math.abs(lastX - currentX);
+            const deltaY = Math.abs(lastY - currentY);
+            const deltaZ = Math.abs(lastZ - currentZ);
+            
+            if (deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) {
+                showGif();
+            }
+            
+            lastX = currentX;
+            lastY = currentY;
+            lastZ = currentZ;
+        });
+        
+        window.addEventListener('keydown', function(event) {
+            if (event.code === 'Space') {
+                showGif();
+                event.preventDefault();
+            }
+        });
+    }
+});
+</script>
 <body>
     <div id="preloader">
         <div class="spinner"></div>
