@@ -3,392 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>makser - biography</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>makser</title>
     <link href="https://fonts.googleapis.com/css2?family=Onest:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jsmediatags@3.9.7/dist/jsmediatags.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Onest', sans-serif; background: #000; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s, visibility 0.5s; }
+        #preloader.hidden { opacity: 0; visibility: hidden; }
+        .spinner { width: 50px; height: 50px; background: #fff; border-radius: 50%; animation: bounce 0.6s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-80px); } }
 
-        body {
-            font-family: 'Onest', sans-serif;
-            font-weight: 700;
-            background: #000000;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        .container { max-width: 600px; width: 100%; opacity: 0; animation: fadeIn 0.8s forwards; animation-delay: 5s; }
+        @keyframes fadeIn { to { opacity: 1; } }
 
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
+        .card { background: rgba(255,255,255,0.03); border: 2px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 30px; backdrop-filter: blur(10px); margin-bottom: 20px; }
+        .card li { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.08); list-style: none; }
+        .card li:last-child { border-bottom: none; }
+        .card li strong { color: #888; text-transform: lowercase; min-width: 100px; }
+        .card li a { color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); }
+        .social-buttons { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+        .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; text-decoration: none; font-size: 0.9rem; transition: all 0.3s; }
+        .social-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .social-btn i { font-size: 1.1rem; }
 
-        #preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            background: #ffffff;
-            border-radius: 50%;
-            animation: bounce 0.6s ease-in-out infinite;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-            }
-            50% {
-                transform: translateY(-80px);
-                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-            }
-        }
-
-        .loading-text {
-            margin-top: 30px;
-            font-size: 1.2rem;
-            color: #ffffff;
-            letter-spacing: 2px;
-        }
-
-        .dots {
-            display: inline-block;
-        }
-
-        .dot {
-            animation: dotPulse 1.4s infinite ease-in-out;
-            opacity: 0;
-        }
-
-        .dot:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes dotPulse {
-            0%, 80%, 100% {
-                opacity: 0;
-            }
-            40% {
-                opacity: 1;
-            }
-        }
-
-        .container {
-            max-width: 700px;
-            width: 100%;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-            animation-delay: 5s;
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .top-bar h1 {
-            font-size: 1.8rem;
-            letter-spacing: 1px;
-            color: #ffffff;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-        }
-
-        .card ul {
-            list-style: none;
-        }
-
-        .card li {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 20px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .card li:last-child {
-            border-bottom: none;
-        }
-
-        .card li strong {
-            font-size: 1rem;
-            color: #888888;
-            text-transform: lowercase;
-            min-width: 120px;
-        }
-
-        .card li span {
-            font-size: 1rem;
-            color: #ffffff;
-            text-align: right;
-            line-height: 1.6;
-        }
-
-        .card li a {
-            color: #ffffff;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .card li a:hover {
-            color: #888888;
-            border-bottom-color: #888888;
-        }
-
-        .social-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .social-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .social-btn i {
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 10px;
-            }
-
-            .top-bar h1 {
-                font-size: 1.5rem;
-            }
-
-            .card {
-                padding: 20px;
-            }
-
-            .card li {
-                flex-direction: column;
-                gap: 10px;
-                padding: 15px 0;
-            }
-
-            .card li strong {
-                min-width: auto;
-            }
-
-            .card li span {
-                text-align: left;
-            }
-
-            .social-buttons {
-                justify-content: flex-start;
-                width: 100%;
-            }
-
-            .social-btn {
-                flex: 1;
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .top-bar h1 {
-                font-size: 1.3rem;
-            }
-
-            .card {
-                padding: 15px;
-            }
-
-            .spinner {
-                width: 40px;
-                height: 40px;
-            }
-
-            .loading-text {
-                font-size: 1rem;
-            }
-        }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #444; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 10px; text-transform: uppercase; font-family: inherit; transition: 0.3s; white-space: nowrap; }
+        .tab-btn.active { color: #fff; border-color: #fff; background: rgba(255,255,255,0.1); }
+        
+        .player-row { display: flex; align-items: center; gap: 15px; }
+        .player-controls { display: flex; align-items: center; gap: 10px; }
+        .control-btn { font-size: 18px; cursor: pointer; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; transition: opacity 0.2s; }
+        .control-btn:hover { opacity: 0.7; }
+        #play-btn { font-size: 24px; }
+        .track-info { flex: 1; overflow: hidden; }
+        #track-name { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        #track-artist { font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+        #folder-name { font-size: 10px; color: #444; text-transform: uppercase; margin-top: 4px; }
+        .cover-image { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; background: rgba(255,255,255,0.05); }
+        .time-info { font-size: 11px; color: #666; white-space: nowrap; margin-left: 10px; }
+        .volume-control { display: flex; align-items: center; gap: 8px; }
+        .volume-slider { width: 80px; height: 3px; background: rgba(255,255,255,0.1); border-radius: 2px; outline: none; cursor: pointer; }
+        .volume-slider::-webkit-slider-thumb { appearance: none; width: 10px; height: 10px; background: #fff; border-radius: 50%; cursor: pointer; }
+        .volume-slider::-moz-range-thumb { width: 10px; height: 10px; background: #fff; border-radius: 50%; cursor: pointer; border: none; }
+        
+        .progress-line { width: 100%; height: 3px; background: rgba(255,255,255,0.05); margin-top: 15px; cursor: pointer; border-radius: 2px; position: relative; }
+        #bar { width: 0%; height: 100%; background: #fff; border-radius: 2px; transition: width 0.1s; }
+        .progress-container { display: flex; align-items: center; gap: 10px; margin-top: 15px; }
+        .progress-time { font-size: 11px; color: #666; min-width: 40px; }
     </style>
 </head>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    if (typeof window.DeviceMotionEvent !== 'undefined') {
-        let lastX = null, lastY = null, lastZ = null;
-        let isGifShown = false;
-        let shakeThreshold = 15;
-        
-        const gifContainer = document.createElement('div');
-        gifContainer.id = 'shake-gif';
-        gifContainer.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; text-align: center; z-index: 10000; padding: 20px 0; background: transparent;';
-        
-        const gifImg = document.createElement('img');
-        gifImg.src = 'https://media.tenor.com/o9rNU1uX_R0AAAAi/cat-campfire.gif';
-        gifImg.alt = 'Кот у костра';
-        gifImg.style.cssText = 'max-width: 250px; width: 80%; height: auto; border-radius: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.3);';
-        
-        gifContainer.appendChild(gifImg);
-        document.body.appendChild(gifContainer);
-        
-        function showGif() {
-            if (isGifShown) return;
-            isGifShown = true;
-            gifContainer.style.display = 'block';
-        }
-        
-        window.addEventListener('devicemotion', function(event) {
-            const acceleration = event.accelerationIncludingGravity;
-            const currentX = acceleration.x;
-            const currentY = acceleration.y;
-            const currentZ = acceleration.z;
-            
-            if (lastX === null || lastY === null || lastZ === null) {
-                lastX = currentX;
-                lastY = currentY;
-                lastZ = currentZ;
-                return;
-            }
-            
-            const deltaX = Math.abs(lastX - currentX);
-            const deltaY = Math.abs(lastY - currentY);
-            const deltaZ = Math.abs(lastZ - currentZ);
-            
-            if (deltaX > shakeThreshold || deltaY > shakeThreshold || deltaZ > shakeThreshold) {
-                showGif();
-            }
-            
-            lastX = currentX;
-            lastY = currentY;
-            lastZ = currentZ;
-        });
-        
-        window.addEventListener('keydown', function(event) {
-            if (event.code === 'Space') {
-                showGif();
-                event.preventDefault();
-            }
-        });
-    }
-});
-</script>
 <body>
-    <div id="preloader">
-        <div class="spinner"></div>
-        <div class="loading-text">
-            loading
-            <span class="dots">
-                <span class="dot">.</span>
-                <span class="dot">.</span>
-                <span class="dot">.</span>
-            </span>
-        </div>
-    </div>
+
+    <div id="preloader"><div class="spinner"></div></div>
 
     <div class="container">
-        <div class="top-bar">
-            <h1>biography</h1>
+        <div class="card">
+            <ul>
+                <li><strong>nickname</strong><span>makser</span></li>
+                <li><strong>role</strong><span>admin in <a href="https://jamhost.t.me" target="_blank">jamhost</a>, <a href="https://t.me/addlist/L64cNMZeRmA1MGFi" target="_blank">komaru</a></span></li>
+                <li><strong>socials</strong>
+                    <div class="social-buttons">
+                        <a href="https://github.com/whymakser/" target="_blank" class="social-btn" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                            <span class="btn-text">github</span>
+                        </a>
+                        <a href="https://notdekma.t.me/" target="_blank" class="social-btn" aria-label="Telegram">
+                            <i class="fa-brands fa-telegram"></i>
+                            <span class="btn-text">telegram</span>
+                        </a>
+                    </div>
+                </li>
+                <li><strong>contact</strong><span><a href="mailto:makserwhyy@xyecoc.com">makserwhyy@xyecoc.com</a></span></li>
+            </ul>
         </div>
 
-        <main>
-            <div class="card">
-                <ul>
-                    <li>
-                        <strong>nickname</strong>
-                        <span>makser</span>
-                    </li>
-                    <li>
-                        <strong>role</strong>
-                        <span>admin in <a href="https://jamhost.t.me" target="_blank">jamhost</a>,<br><a href="https://t.me/addlist/L64cNMZeRmA1MGFi" target="_blank">komaru</a></span>
-                    </li>
-                    <li>
-                        <strong>socials</strong>
-                        <div class="social-buttons">
-                            <a href="https://github.com/whymakser/" target="_blank" class="social-btn" aria-label="GitHub">
-                                <i class="fa-brands fa-github"></i>
-                                <span class="btn-text">github</span>
-                            </a>
-                            <a href="https://extracli.t.me/" target="_blank" class="social-btn" aria-label="Telegram">
-                                <i class="fa-brands fa-telegram"></i>
-                                <span class="btn-text">telegram</span>
-                            </a>
-                        </div>
-                    </li>
-                    <li>
-                        <strong>contact</strong>
-                        <span><a href="mailto:makserwhyy@xyecoc.com">makserwhyy@xyecoc.com</a></span>
-                    </li>
-                </ul>
+        <div class="card">
+            <div id="tabs" class="tabs"></div>
+            <div class="player-row">
+                <div class="player-controls">
+                    <div class="control-btn" id="prev-btn"><i class="fa-solid fa-backward-step"></i></div>
+                    <div class="control-btn" id="play-btn"><i id="icon" class="fa-solid fa-play"></i></div>
+                    <div class="control-btn" id="next-btn"><i class="fa-solid fa-forward-step"></i></div>
+                </div>
+                <div class="track-info">
+                    <div id="track-name">Scanning...</div>
+                    <div id="track-artist"></div>
+                    <div id="folder-name">/music</div>
+                </div>
+                <div class="time-info">
+                    <span id="current-time">0:00</span> / <span id="total-time">0:00</span>
+                </div>
+                <div class="volume-control">
+                    <i class="fa-solid fa-volume-high" style="font-size: 14px; color: #666;"></i>
+                    <input type="range" class="volume-slider" id="volume" min="0" max="1" step="0.01" value="1">
+                </div>
             </div>
-        </main>
+            <div class="progress-container">
+                <div class="progress-time" id="progress-current">0:00</div>
+            <div class="progress-line" id="seek"><div id="bar"></div></div>
+                <div class="progress-time" id="progress-total">0:00</div>
+            </div>
+        </div>
     </div>
 
+    <audio id="audio" preload="metadata"></audio>
+
     <script>
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 5000);
+        window.onload = () => setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 5000);
+
+        const audio = document.getElementById('audio'), playBtn = document.getElementById('play-btn'), icon = document.getElementById('icon'),
+              trackText = document.getElementById('track-name'), trackArtist = document.getElementById('track-artist'),
+              folderText = document.getElementById('folder-name'), tabsBox = document.getElementById('tabs'),
+              bar = document.getElementById('bar'), seek = document.getElementById('seek'),
+              prevBtn = document.getElementById('prev-btn'), nextBtn = document.getElementById('next-btn'),
+              volumeSlider = document.getElementById('volume'), currentTimeEl = document.getElementById('current-time'),
+              totalTimeEl = document.getElementById('total-time'), progressCurrent = document.getElementById('progress-current'),
+              progressTotal = document.getElementById('progress-total');
+
+        let library = {}, curF = "", idx = 0;
+        let fadeInterval = null;
+        const FADE_DURATION = 300;
+        const LASTFM_API_KEY = 'c8c0ea865195ba9579bba97b5ea3a15b';
+
+        function normalizeTrack(track) {
+            if (typeof track === 'string') {
+                return { file: track, title: track.replace(/\.[^/.]+$/, ""), artist: "", cover: "" };
+            }
+            return {
+                file: track.file || track,
+                title: track.title || track.file?.replace(/\.[^/.]+$/, "") || "",
+                artist: track.artist || "",
+                cover: track.cover || ""
+            };
+        }
+
+        function normalizeLibrary(data) {
+            const normalized = {};
+            for (let key in data) {
+                normalized[key] = data[key].map(normalizeTrack);
+            }
+            return normalized;
+        }
+
+        async function scan() {
+            try {
+                const paths = ['./music.json', '/music.json', 'music.json'];
+                let res = null;
+                for (let path of paths) {
+                    try {
+                        res = await fetch(path);
+                        if (res.ok) break;
+                    } catch (e) {}
+                }
+                if (!res || !res.ok) {
+                    library = normalizeLibrary({ "music": ["VUL_-_OTKROJJ_MNE_DVER_74603063.mp3"] });
+                } else {
+                    const data = await res.json();
+                    library = normalizeLibrary(data);
+                }
+                const keys = Object.keys(library);
+                if (keys.length > 0) { 
+                    render(keys); 
+                    load(keys[0]); 
+                } else {
+                    trackText.innerText = "No music found";
+                }
+            } catch (e) { 
+                console.error('Scan error:', e);
+                library = normalizeLibrary({ "music": ["VUL_-_OTKROJJ_MNE_DVER_74603063.mp3"] });
+                const keys = Object.keys(library);
+                if (keys.length > 0) { 
+                    render(keys); 
+                    load(keys[0]); 
+                } else {
+                    trackText.innerText = `Error: ${e.message}`;
+                }
+            }
+        }
+
+        function render(keys) {
+            tabsBox.innerHTML = keys.map(k => {
+                const escaped = k.replace(/'/g, "\\'");
+                return `<button class="tab-btn" onclick="load('${escaped}')">${k}</button>`;
+            }).join('');
+        }
+
+        function load(f) {
+            curF = f; idx = 0;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.innerText === f));
+            folderText.innerText = f;
+            setup();
+        }
+
+        function setup() {
+            const s = library[curF];
+            if (!s || !s[idx]) return;
+            const track = s[idx];
+            const folderPath = curF === 'music' ? '' : `${curF}/`;
+            const fileName = track.file;
+            const fullPath = `./music/${folderPath}${fileName}`;
+            console.log('Loading track:', fullPath);
+            
+            trackText.innerText = track.title || fileName.replace(/\.[^/.]+$/, "");
+            trackArtist.textContent = track.artist || "";
+            trackArtist.style.display = track.artist ? "block" : "none";
+            
+            stopFade();
+            audio.src = fullPath;
+            audio.volume = 0;
+            audio.load();
+            
+            const tryGetMetadata = () => {
+                if (typeof jsmediatags !== 'undefined') {
+                    fetch(fullPath)
+                        .then(response => response.blob())
+                        .then(blob => {
+                            jsmediatags.read(blob, {
+                                onSuccess: function(tag) {
+                                    const tags = tag.tags;
+                                    let hasTitle = false, hasArtist = false;
+
+                                    if (tags.title && !track.title) {
+                                        trackText.innerText = tags.title;
+                                        track.title = tags.title;
+                                        hasTitle = true;
+                                    }
+                                    if (tags.artist && !track.artist) {
+                                        trackArtist.textContent = tags.artist;
+                                        trackArtist.style.display = "block";
+                                        track.artist = tags.artist;
+                                        hasArtist = true;
+                                    }
+                                    if (tags.picture) {
+                                        const imageData = tags.picture.data;
+                                        const format = tags.picture.format;
+                                        let base64String = '';
+                                        for (let i = 0; i < imageData.length; i++) {
+                                            base64String += String.fromCharCode(imageData[i]);
+                                        }
+                                        const imageUrl = `data:${format};base64,${btoa(base64String)}`;
+                                        if (track.cover === '') {
+                                            track.cover = imageUrl;
+                                        }
+                                    }
+
+                                    if ((!hasTitle || !hasArtist) && (tags.title || tags.artist || fileName)) {
+                                        searchLastFM(tags.title || track.title || fileName.replace(/\.[^/.]+$/, ""), tags.artist || track.artist || "");
+                                    }
+                                },
+                                onError: function(error) {
+                                    console.log('Error reading ID3 tags:', error);
+                                    const fileNameClean = fileName.replace(/\.[^/.]+$/, "");
+                                    searchLastFM(fileNameClean, track.artist || "");
+                                }
+                            });
+                        })
+                        .catch(error => {
+                            console.log('Error fetching file for metadata:', error);
+                            const fileNameClean = fileName.replace(/\.[^/.]+$/, "");
+                            searchLastFM(fileNameClean, track.artist || "");
+                        });
+                } else {
+                    const fileNameClean = fileName.replace(/\.[^/.]+$/, "");
+                    searchLastFM(fileNameClean, track.artist || "");
+                }
+            };
+            
+            const searchLastFM = async (trackName, artistName) => {
+                if (!LASTFM_API_KEY || (!trackName && !artistName)) return;
+                
+                try {
+                    const query = artistName ? `${artistName} ${trackName}` : trackName;
+                    const url = `https://ws.audioscrobbler.com/2.0/?method=track.search&track=${encodeURIComponent(query)}&api_key=${LASTFM_API_KEY}&format=json&limit=1`;
+                    
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    if (data.results && data.results.trackmatches && data.results.trackmatches.track) {
+                        const result = Array.isArray(data.results.trackmatches.track) 
+                            ? data.results.trackmatches.track[0] 
+                            : data.results.trackmatches.track;
+                        
+                        if (!track.title && result.name) {
+                            track.title = result.name;
+                            trackText.innerText = result.name;
+                        }
+                        if (!track.artist && result.artist) {
+                            track.artist = result.artist;
+                            trackArtist.textContent = result.artist;
+                            trackArtist.style.display = "block";
+                        }
+                        if (!track.cover && result.image && result.image.length > 0) {
+                            const largeImage = result.image.find(img => img.size === 'large') || result.image[result.image.length - 1];
+                            if (largeImage && largeImage['#text']) {
+                                track.cover = largeImage['#text'];
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.log('Error searching Last.fm:', error);
+                }
+            };
+            
+            tryGetMetadata();
+        }
+
+        function stopFade() {
+            if (fadeInterval) {
+                clearInterval(fadeInterval);
+                fadeInterval = null;
+            }
+        }
+
+        function fadeIn(targetVolume = null) {
+            stopFade();
+            const target = targetVolume !== null ? targetVolume : parseFloat(volumeSlider.value);
+            const startVolume = audio.volume;
+            const startTime = Date.now();
+            
+            audio.volume = 0;
+            
+            fadeInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / FADE_DURATION, 1);
+                audio.volume = startVolume + (target - startVolume) * progress;
+                
+                if (progress >= 1) {
+                    audio.volume = target;
+                    stopFade();
+                }
+            }, 16);
+        }
+
+        function fadeOut(callback = null) {
+            stopFade();
+            const startVolume = audio.volume;
+            const startTime = Date.now();
+            
+            fadeInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / FADE_DURATION, 1);
+                audio.volume = startVolume * (1 - progress);
+                
+                if (progress >= 1) {
+                    audio.volume = 0;
+                    stopFade();
+                    if (callback) callback();
+                }
+            }, 16);
+        }
+
+        function formatTime(seconds) {
+            if (!isFinite(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateTime() {
+            if (audio.duration) {
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                totalTimeEl.textContent = formatTime(audio.duration);
+                progressCurrent.textContent = formatTime(audio.currentTime);
+                progressTotal.textContent = formatTime(audio.duration);
+            }
+        }
+
+        prevBtn.onclick = () => {
+            if (library[curF] && library[curF].length > 0) {
+                fadeOut(() => {
+                    idx = (idx - 1 + library[curF].length) % library[curF].length;
+                    setup();
+                    audio.play().then(() => fadeIn()).catch(e => console.error('Play error:', e));
+                });
+            }
+        };
+
+        nextBtn.onclick = () => {
+            if (library[curF] && library[curF].length > 0) {
+                fadeOut(() => {
+                    idx = (idx + 1) % library[curF].length;
+                    setup();
+                    audio.play().then(() => fadeIn()).catch(e => console.error('Play error:', e));
+                });
+            }
+        };
+
+        playBtn.onclick = async () => {
+            if (audio.paused) { 
+                try {
+                    await audio.play(); 
+                    icon.className = 'fa-solid fa-pause';
+                    fadeIn();
+                } catch (e) {
+                    console.error('Play error:', e);
+                }
+            } else { 
+                fadeOut(() => {
+                    audio.pause();
+                    icon.className = 'fa-solid fa-play';
+                });
+            }
+        };
+
+        volumeSlider.addEventListener('input', (e) => {
+            stopFade();
+            audio.volume = e.target.value;
         });
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                bar.style.width = (audio.currentTime / audio.duration * 100) + '%';
+                updateTime();
+            }
+        });
+        
+        audio.addEventListener('error', (e) => {
+            console.error('Audio error:', e, audio.error, audio.src);
+            trackText.innerText = 'Error loading track';
+            if (audio.error) {
+                console.error('Error code:', audio.error.code, 'Message:', audio.error.message);
+            }
+        });
+        
+        audio.addEventListener('loadeddata', () => {
+            updateTime();
+        });
+        
+        audio.addEventListener('loadedmetadata', () => {
+            updateTime();
+        });
+        
+        audio.addEventListener('canplay', () => {
+            console.log('Audio can play:', audio.src);
+        });
+        
+        seek.onclick = (e) => {
+            if (audio.duration) {
+                const rect = seek.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                audio.currentTime = (x / seek.clientWidth) * audio.duration;
+            }
+        };
+        
+        audio.addEventListener('ended', () => {
+            if (library[curF] && library[curF].length > 0) {
+                fadeOut(() => {
+                    idx = (idx + 1) % library[curF].length;
+                    setup();
+                    audio.play().then(() => fadeIn()).catch(e => console.error('Auto-play error:', e));
+                });
+            }
+        });
+
+        scan();
     </script>
 </body>
 </html>
