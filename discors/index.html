@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            background-color: #313338;
+            font-family: 'gg sans', 'Noto Sans', sans-serif;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; color: white; overflow: hidden;
+        }
+
+        /* Карточка входа */
+        #login-box {
+            background: #313338; padding: 32px; border-radius: 8px;
+            display: flex; width: 780px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .login-left { flex: 1; text-align: center; }
+        .login-right { width: 240px; margin-left: 32px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        @media (max-width: 700px) {
+            .login-right { display: none; }
+            #login-box { width: 95%; }
+        }
+
+        h2 { margin: 0 0 8px; font-size: 24px; font-weight: 600; }
+        .subtitle { color: #B5BAC1; margin-bottom: 20px; font-size: 16px; }
+
+        #error-msg {
+            color: #F23F42; font-size: 13px; background: rgba(242, 63, 66, 0.1);
+            border: 1px solid rgba(242, 63, 66, 0.2); padding: 10px;
+            border-radius: 4px; margin-bottom: 15px; text-align: left; display: none;
+        }
+
+        .input-group { text-align: left; margin-bottom: 20px; position: relative; }
+        label { display: block; color: #B5BAC1; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; }
+        input { width: 100%; padding: 10px; background: #1E1F22; border: none; border-radius: 3px; color: white; font-size: 16px; box-sizing: border-box; }
+
+        .btn {
+            width: 100%; padding: 12px; background: #5865F2; color: white;
+            border: none; border-radius: 3px; font-size: 16px; font-weight: 500;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+
+        .rkn-icon { height: 22px; margin-left: 10px; display: none; }
+        .cross { position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; }
+        .cross::before, .cross::after { content: ''; position: absolute; width: 95%; height: 2px; background: #F23F42; }
+        .cross::before { transform: rotate(4deg); } .cross::after { transform: rotate(-4deg); }
+
+        /* Терминал */
+        #terminal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0C0C0C; color: #00FF41; font-family: monospace;
+            padding: 40px; display: none; z-index: 1000; box-sizing: border-box; font-size: 15px;
+        }
+
+        /* Финальное поздравление */
+        #final-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #1E1F22; display: none; flex-direction: column;
+            justify-content: center; align-items: center; z-index: 2000;
+            overflow: hidden;
+        }
+
+        .wish-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s ease-in-out;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .wish-text.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wish-text.exit {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        .qr-container { background: white; padding: 10px; border-radius: 4px; margin-bottom: 15px; }
+        .qr-container img { width: 160px; height: 160px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-box">
+        <div class="login-left">
+            <h2>С возвращением!</h2>
+            <div class="subtitle">Мы так рады, что вы снова с нами!</div>
+            <div id="error-msg">Connection failed. Check ur ethernet, maybe RKN banned our project, use Boost )</div>
+            <div class="input-group" id="g1"><label>E-mail</label><input type="text"><div class="cross"></div></div>
+            <div class="input-group" id="g2"><label>Пароль</label><input type="password"><div class="cross"></div></div>
+            <button class="btn" id="mainBtn" onclick="handleAction()">
+                <span id="btnText">Вход</span>
+                <img id="rkn" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/RKN_site_logo_%282013-2021%29.svg" class="rkn-icon">
+            </button>
+        </div>
+        <div class="login-right">
+            <div class="qr-container"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://www.youtube.com/watch?v=dQw4w9WgXcQ"></div>
+            <h3>Вход через QR</h3>
+        </div>
+    </div>
+
+    <div id="terminal"></div>
+
+    <div id="final-screen">
+        <div class="wish-text" id="w1">С днём рождения, Леша! 🎂</div>
+        <div class="wish-text" id="w2">Желаю счастья, здоровья!</div>
+        <div class="wish-text" id="w3">Чтобы было все хорошо в жизни.</div>
+        <div class="wish-text" id="w4">Леше, от Максима.<br>Поздравляю!</div>
+        <div class="wish-text" id="w5" style="font-size: 18px; color: #B5BAC1;">Чтобы роблокс разблокали епт 🌙</div>
+    </div>
+
+    <script>
+        let stage = 0;
+
+        async function handleAction() {
+            if (stage === 0) {
+                document.getElementById('btnText').innerText = 'Вход...';
+                setTimeout(() => {
+                    document.getElementById('error-msg').style.display = 'block';
+                    document.getElementById('btnText').innerText = 'Забустить!';
+                    document.getElementById('rkn').style.display = 'block';
+                    document.getElementById('mainBtn').style.backgroundColor = '#F23F42';
+                    document.querySelectorAll('.cross').forEach(c => c.style.opacity = '1');
+                    stage = 1;
+                }, 1000);
+            } else if (stage === 1) {
+                document.getElementById('login-box').style.display = 'none';
+                const term = document.getElementById('terminal');
+                term.style.display = 'block';
+
+                const lines = [
+                    "> Initializing Zapret-v1.2.4...",
+                    "> Sending fake packets via help.max.ru tunnel...",
+                    "> [REDIRECT] Redirecting session to http://help.max.ru/auth_bypass",
+                    "> Status: ACCESS GRANTED",
+                    "> Executing: birthday_script.sh..."
+                ];
+
+                for (let line of lines) {
+                    let p = document.createElement('div');
+                    p.textContent = line;
+                    term.appendChild(p);
+                    await new Promise(r => setTimeout(r, 600));
+                }
+
+                setTimeout(() => {
+                    term.style.display = 'none';
+                    startWishes();
+                }, 1000);
+            }
+        }
+
+        async function startWishes() {
+            const screen = document.getElementById('final-screen');
+            screen.style.display = 'flex';
+            
+            const wishes = ["w1", "w2", "w3", "w4", "w5"];
+            
+            for (let id of wishes) {
+                const el = document.getElementById(id);
+                el.classList.add('active');
+                await new Promise(r => setTimeout(r, 2500));
+                el.classList.remove('active');
+                el.classList.add('exit');
+                await new Promise(r => setTimeout(r, 500));
+            }
+            
+            // Оставляем последнюю фразу
+            const last = document.getElementById("w5");
+            last.classList.remove('exit');
+            last.classList.add('active');
+            last.style.fontSize = "24px";
+            last.style.color = "white";
+        }
+    </script>
+</body>
+</html>
